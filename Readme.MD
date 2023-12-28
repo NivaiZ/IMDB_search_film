@@ -1,6 +1,6 @@
 ## Поиск фильмов с использованием API от OMDB
 
-[Демо проекта](https://nivaiz.github.io/DigitalElement/build/index.html)
+[Демо проекта](https://nivaiz.github.io/IMDB_search_film/)
 
 Вёрстка: [Илья Галятдинов](https://github.com/NivaiZ/)
 

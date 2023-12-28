@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function searchFilmHandler() {
     const getMovieName = movieName.value;
-    const ApiUrl = `http://www.omdbapi.com/?s=${getMovieName}&apikey=${key}`;
+    const ApiUrl = `https://www.omdbapi.com/?s=${getMovieName}&apikey=${key}`;
 
     if (getMovieName.length <= 0) {
       resultWrapper.innerHTML = `<h3 class="msg">Введите название фильма</h3>`;
