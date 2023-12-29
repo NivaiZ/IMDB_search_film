@@ -15,8 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     const getMovieName = movieName.value.trim("");
-    const ApiUrl = `https://www.omdbapi.com/?s=${getMovieName}&apikey=${key}&page=${page}&plot=full`;
-
+    const getYear = document.getElementById("y")?.value.trim();
+    const ApiUrl = `http://www.omdbapi.com/?s=${getMovieName}&apikey=${key}&page=${page}&plot=full${
+      getYear ? `&y=${getYear}` : ""
+    }`;
+    resultWrapper.innerHTML = "";
+    paginationWrapper.innerHTML = "";
     if (getMovieName.length === 0) {
       resultWrapper.innerHTML = `<h3 class="msg">Введите название фильма</h3>`;
       return;
@@ -67,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
           )
           .finally(() => {
             isLoading = false;
-            hideLoadingIndicator(); // Перемещено сюда
+            hideLoadingIndicator();
           });
       })
       .catch((error) => {
@@ -75,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resultWrapper.innerHTML = `<h3 class="msg">Произошла ошибка при получении данных. Временные работы на сервере. Приносим извинения за предоставленные неудобства!</h3>`;
         paginationWrapper.innerHTML = "";
         isLoading = false;
-        hideLoadingIndicator(); // Перемещено сюда
+        hideLoadingIndicator();
       });
   }
 
@@ -149,14 +153,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderPagination() {
     const totalPage = Math.ceil(totalResults / itemsPerPage);
+    const maxButtons = 5;
+    const halfMaxButtons = Math.floor(maxButtons / 2);
+
+    let startPage = Math.max(1, currentPage - halfMaxButtons);
+    let endPage = Math.min(startPage + maxButtons - 1, totalPage);
+
+    if (totalPage - endPage < halfMaxButtons) {
+      startPage = Math.max(1, endPage - maxButtons + 1);
+    }
 
     paginationWrapper.innerHTML = Array.from(
-      { length: totalPage },
-      (_, index) => index + 1
+      { length: endPage - startPage + 1 },
+      (_, index) => startPage + index
     )
       .map(
-        (PageNumber) =>
-          `<li class="pagination__item swiper-slide"><button class="pagination-btn" data-page="${PageNumber}" type="button">${PageNumber}</button></li>`
+        (pageNumber) =>
+          `<li class="pagination__item swiper-slide"><button class="pagination-btn" data-page="${pageNumber}" type="button">${pageNumber}</button></li>`
       )
       .join("");
 
