@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         const detailedRequests = data.Search.map((movie) =>
           fetch(
-            `http://www.omdbapi.com/?i=${movie.imdbID}&apikey=${key}&plot=full`
+            `https://www.omdbapi.com/?i=${movie.imdbID}&apikey=${key}&plot=full`
           )
             .then((response) => response.json())
             .then((detailedData) => {
