@@ -1,16 +1,3 @@
-// В идеале добавить типизацию к получаемым данным
-// interface Movie {
-//   Title: string;
-//   Year: string;
-//   Poster: string;
-//   Type: string;
-// }
-
-// interface SearchResponse {
-//   Search: Movie[];
-//   totalResults: string;
-//   Error?: string;
-// }
 document.addEventListener("DOMContentLoaded", () => {
   const movieName = document.querySelector(".search__input");
   const searchButton = document.querySelector("#search-btn");
@@ -28,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     const getMovieName = movieName.value.trim("");
-    const ApiUrl = `http://www.omdbapi.com/?s=${getMovieName}&apikey=${key}&page=${page}&plot=full`;
+    const ApiUrl = `https://www.omdbapi.com/?s=${getMovieName}&apikey=${key}&page=${page}&plot=full`;
 
     if (getMovieName.length === 0) {
       resultWrapper.innerHTML = `<h3 class="msg">Введите название фильма</h3>`;
